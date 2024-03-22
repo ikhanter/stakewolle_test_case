@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "stakewolle"
+version = "0.1.0"
+description = ""
+authors = ["ikhanter <khantermail@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.110.0"
+asyncio = "^3.4.3"
+fastapi-users = {extras = ["oauth", "sqlalchemy"], version = "^13.0.0"}
+aiosqlite = "^0.20.0"
+python-dotenv = "^1.0.1"
+uvicorn = "^0.28.0"
+alembic = "^1.13.1"
+asyncpg = "^0.29.0"
+pytz = "^2024.1"
+flake8 = "^7.0.0"
+sqlalchemy = "^2.0.28"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
