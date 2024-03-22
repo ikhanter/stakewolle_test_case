@@ -13,6 +13,8 @@ It is necessary to develop a simple RESTful API service for the referral system.
 
 #### System requirements
 - Python 3.10.12^
+- Poetry 1.6.1^
+- PostgreSQL 15^
 - fastapi ^0.110.0
 - asyncio ^3.4.3
 - fastapi-users ^13.0.0
@@ -25,8 +27,16 @@ It is necessary to develop a simple RESTful API service for the referral system.
 - flake8 ^7.0.0
 - sqlalchemy ^2.0.28
 
+#### Environment Variables
+- DATABASE_URL
+- SECRET_KEY
+- DEBUG
+
 #### build command
 ```make build```
 
 #### start command
 ```make start```
+
+#### dev command
+```make dev```
