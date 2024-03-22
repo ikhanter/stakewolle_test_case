@@ -1,4 +1,7 @@
 start:
+	poetry run uvicorn stakewolle.app:app --workers 4
+
+dev:
 	poetry run python main.py
 
 alembic_init:
