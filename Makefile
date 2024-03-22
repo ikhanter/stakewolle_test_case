@@ -1,5 +1,5 @@
 start:
-	poetry run uvicorn stakewolle.app:app --host 0.0.0.0 --port 8000 --workers 4
+	poetry run gunicorn -w 4 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker stakewolle.app:app
 
 dev:
 	poetry run python main.py
