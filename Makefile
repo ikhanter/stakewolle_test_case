@@ -19,3 +19,9 @@ install:
 build:
 	$(MAKE) install
 	$(MAKE) alembic_upgrade
+
+task2:
+	poetry run python task2.py
+
+lint:
+	poetry run flake8
