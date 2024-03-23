@@ -79,7 +79,7 @@ class BaseExchange:
 
 class MyExchange(BaseExchange):
     """
-        docs: todo Add a link to the API documentation here
+        docs: https://docs.coingecko.com/v3.0.1/reference/introduction
     """
 
     def __init__(self):
