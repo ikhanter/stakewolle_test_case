@@ -1,8 +1,13 @@
 import asyncio
+import os
 from typing import Optional, Tuple, Union
 
 import aiohttp
 from dataclasses import dataclass
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 @dataclass
@@ -81,6 +86,22 @@ class MyExchange(BaseExchange):
         self.id = 'coingecko'
         self.base_url = 'https://api.coingecko.com/api/v3/'
         self.markets = {}
+
+    # Перепишем функцию, добавив паузу и хэдер API-ключа
+    async def fetch_data(self, url: str):
+        """
+        :param url: URL to fetch the data from exchange
+        :return: raw data
+        """
+        headers = {'x-cg-demo-api-key': os.getenv('API_KEY', '')}
+        async with aiohttp.ClientSession(headers=headers) as session:
+            async with session.get(url) as resp:
+                if resp and resp.status == 200:
+                    data = await resp.json()
+                else:
+                    raise Exception(resp)
+        await asyncio.sleep(2)
+        return data
 
     def _convert_symbol_to_ccxt(self, symbols: str) -> Symbol:
         pass
@@ -166,7 +187,6 @@ class MyExchange(BaseExchange):
         # в рамках trading pair
         subresponse = await self.fetch_data(
             f"{self.base_url}/coins/markets/?ids={vs_currency_based_id}&vs_currency={base_id}")  # noqa: E501
-        await asyncio.sleep(2)
 
         return subresponse[0]['total_volume']
 
@@ -185,11 +205,17 @@ class MyExchange(BaseExchange):
 
     async def fetch_tickers(self) -> dict[Symbol, TickerInfo]:
 
-        # Получаем базовый список валют и vs_currencies
+        # Получаем базовый список валют и vs_currencies.
+        # Изначально смутила формулировка total_volume. 
+        # Планировал уже пересчитывать через объемы продаж по часам,
+        # так как если задать на эндпоинте посуточную информацию, 
+        # начинает считать от полуночаи, а не сутки назад от текущего времени.
+        # Более того, выяснил, что даже почасовая информация дается не в абсо-
+        # лютных величинах, а скользящие значения посуточных величин от
+        # конкретного часа. Так что остановился на варианте ниже,
+        # тем более что по сверке с сайтом информация около-актуальная.
         base_currencies = await self.fetch_data(f"{self.base_url}/coins/list")
-        await asyncio.sleep(2)
         vs_currencies = await self.fetch_data(f"{self.base_url}/simple/supported_vs_currencies")  # noqa: E501
-        await asyncio.sleep(2)
 
         data = {}
 
@@ -197,8 +223,7 @@ class MyExchange(BaseExchange):
 
             # По каждой vs_currency просматриваем курсы
             # относительно базовых валют
-            response = await self.fetch_data(f"{self.base_url}/coins/markets/?vs_currency={vs_currency}")  # noqa: E501
-            await asyncio.sleep(2)
+            response = await self.fetch_data(f"{self.base_url}/coins/markets/?vs_currency={vs_currency}&category=cryptocurrency")  # noqa: E501
 
             for trading_pair in response:
 
@@ -232,7 +257,6 @@ class MyExchange(BaseExchange):
                         id_for_base_volume,
                         trading_pair['symbol'],
                     )
-                    await asyncio.sleep(2)
 
                 # Создаем пару ключ-значение в словаре и
                 # тут же просматриваем в консоли

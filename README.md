@@ -31,6 +31,7 @@ It is necessary to develop a simple RESTful API service for the referral system.
 - DATABASE_URL
 - SECRET_KEY
 - DEBUG
+- API_KEY (for 2nd task - CoinGecko API-key)
 
 #### build command
 ```make build```
@@ -72,3 +73,7 @@ The flow looks like this:
 
 #### start task 2 command
 ```make task2```
+
+#### task 2 output example
+There is a little part of full output
+```task2.txt```
