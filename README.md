@@ -62,10 +62,10 @@ The flow looks like this:
 2. We bring the ticker to the general format
 3. We extract from the ticker properties the last price, the 24-hour trading volume of the base currency and the 24-hour trading volume of the quoted currency. (at least one of the volumes is required)
 4. Return the structure in the format:
-    ```{
-        "BTC/USDT": TickerInfo(last=57000, baseVolume=11328, quoteVolume=3456789),
-        "ETH/BTC": TickerInfo(last=4026, baseVolume=4567, quoteVolume=0)
-    }```
+```{
+    "BTC/USDT": TickerInfo(last=57000, baseVolume=11328, quoteVolume=3456789),
+    "ETH/BTC": TickerInfo(last=4026, baseVolume=4567, quoteVolume=0)
+}```
 
 #### start task 2 command
 ```make task2```
