@@ -46,27 +46,26 @@ It is necessary to develop a simple RESTful API service for the referral system.
 
 ### Task 2
 
-Description: For an exchange, get all trading pairs, their latest prices and trading volume for 24 hours
-    Task: 
-        Create a class inherited from the BaseExchange class. 
-        Write the implementation of the methods and fill in the required fields (marked as "todo")
-    Note: 
-        Feel free to add another internal methods. 
-        It is important that the example from the main function runs without errors
-    The flow looks like this:
-        1. Request data from the exchange
-        2. We bring the ticker to the general format
-        3. We extract from the ticker properties the last price, 
-            the 24-hour trading volume of the base currency 
-            and the 24-hour trading volume of the quoted currency. 
-            (at least one of the volumes is required)
-        4. Return the structure in the format: 
-            ```
-            {
-                "BTC/USDT": TickerInfo(last=57000, baseVolume=11328, quoteVolume=3456789),
-                "ETH/BTC": TickerInfo(last=4026, baseVolume=4567, quoteVolume=0)
-            }
-            ```
+###### Description
+For an exchange, get all trading pairs, their latest prices and trading volume for 24 hours
+
+###### Task
+- Create a class inherited from the BaseExchange class. 
+- Write the implementation of the methods and fill in the required fields (marked as "todo")
+
+###### Note 
+- Feel free to add another internal methods. 
+- It is important that the example from the main function runs without errors
+
+The flow looks like this:
+1. Request data from the exchange
+2. We bring the ticker to the general format
+3. We extract from the ticker properties the last price, the 24-hour trading volume of the base currency and the 24-hour trading volume of the quoted currency. (at least one of the volumes is required)
+4. Return the structure in the format:
+    ```{
+        "BTC/USDT": TickerInfo(last=57000, baseVolume=11328, quoteVolume=3456789),
+        "ETH/BTC": TickerInfo(last=4026, baseVolume=4567, quoteVolume=0)
+    }```
 
 #### start task 2 command
 ```make task2```
