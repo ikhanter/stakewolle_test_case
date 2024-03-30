@@ -33,6 +33,9 @@ It is necessary to develop a simple RESTful API service for the referral system.
 - DEBUG
 - API_KEY (for 2nd task - CoinGecko API-key)
 
+#### Install command
+```poetry install```
+
 #### build command
 ```make build```
 
